@@ -4,7 +4,7 @@ package pl.merskip.mathalfa;
 import org.junit.Assert;
 import org.junit.Test;
 import pl.merskip.mathalfa.core.elementary.RationalNumber;
-import pl.merskip.mathalfa.helpers.NumberParser;
+import pl.merskip.mathalfa.infixparser.NumberParser;
 
 public class MathAlphaTests {
 

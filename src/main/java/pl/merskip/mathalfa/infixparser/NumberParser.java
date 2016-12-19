@@ -1,4 +1,4 @@
-package pl.merskip.mathalfa.helpers;
+package pl.merskip.mathalfa.infixparser;
 
 import pl.merskip.mathalfa.core.elementary.RationalNumber;
 
