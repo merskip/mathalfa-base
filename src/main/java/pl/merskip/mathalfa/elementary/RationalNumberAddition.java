@@ -1,4 +1,4 @@
-package pl.merskip.mathalfa.core.elementary;
+package pl.merskip.mathalfa.elementary;
 
 import pl.merskip.mathalfa.core.Operation;
 import pl.merskip.mathalfa.core.Symbol;
@@ -12,6 +12,9 @@ public class RationalNumberAddition implements Operation {
     private RationalNumber secondNumber;
 
     private ArrayList<Symbol> arguments;
+
+    public RationalNumberAddition() {
+    }
 
     public RationalNumberAddition(RationalNumber firstNumber, RationalNumber secondNumber) {
         this.firstNumber = firstNumber;

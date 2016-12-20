@@ -1,4 +1,4 @@
-package pl.merskip.mathalfa.core.elementary;
+package pl.merskip.mathalfa.elementary;
 
 import pl.merskip.mathalfa.core.Expression;
 import pl.merskip.mathalfa.core.Symbol;

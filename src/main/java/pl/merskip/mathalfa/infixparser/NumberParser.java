@@ -1,6 +1,6 @@
 package pl.merskip.mathalfa.infixparser;
 
-import pl.merskip.mathalfa.core.elementary.RationalNumber;
+import pl.merskip.mathalfa.elementary.RationalNumber;
 
 public class NumberParser {
 

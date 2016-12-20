@@ -3,7 +3,7 @@ package pl.merskip.mathalfa;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.merskip.mathalfa.core.elementary.RationalNumber;
+import pl.merskip.mathalfa.elementary.RationalNumber;
 import pl.merskip.mathalfa.infixparser.NumberParser;
 
 public class MathAlphaTests {

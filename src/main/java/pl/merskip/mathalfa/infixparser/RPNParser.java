@@ -1,18 +1,26 @@
 package pl.merskip.mathalfa.infixparser;
 
+import pl.merskip.mathalfa.core.OperationDescriptor;
+import pl.merskip.mathalfa.core.OperationDescriptor.Associative;
 import pl.merskip.mathalfa.core.Symbol;
-import pl.merskip.mathalfa.core.elementary.ReversePolishNotationExpression;
+import pl.merskip.mathalfa.core.SymbolsRegister;
+import pl.merskip.mathalfa.elementary.ReversePolishNotationExpression;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
+
 
 public class RPNParser {
     
     private List<Token> tokens;
+    private SymbolsRegister symbolsRegister;
     
-    public RPNParser(List<Token> tokens) {
+    
+    public RPNParser(List<Token> tokens, SymbolsRegister symbolsRegister) {
         this.tokens = tokens;
+        this.symbolsRegister = symbolsRegister;
     }
     
     public ReversePolishNotationExpression parse() {
@@ -56,7 +64,7 @@ public class RPNParser {
                         break;
                     }
                     
-                    topOperation = operationsStack.pop();
+                    topOperation = operationsStack.peek();
                 }
                 
                 if (!operationsStack.empty()) {
@@ -88,23 +96,28 @@ public class RPNParser {
     }
     
     private Symbol tokenToSymbol(Token token) {
-        System.out.println("token.text = " + token.text);
-        return null;
+        
+        System.out.println(token.text);
+        
+        if (symbolsRegister.symbolIsNumber(token.text)) {
+            return symbolsRegister.numberFromSymbol(token.text);
+        }
+        else if (isOperator(token)) {
+            return symbolsRegister.operationFromSymbol(token.text, operationForToken(token));
+        }
+        else {
+            throw new ParserException("Unknown symbol: " + token.text, token);
+        }
     }
     
     private boolean isOperator(Token token) {
         if (token.text.length() > 1) return false;
-        char symbol = token.text.charAt(0);
-        return symbol == '+'
-                || symbol == '-'
-                || symbol == '*'
-                || symbol == '/'
-                || symbol == '~'
-                || symbol == '^';
+        String symbol = token.text;
+        return symbolsRegister.operationForSymbol(symbol).isPresent();
     }
     
     private boolean isLeftBiding(Token token) {
-        return !token.text.equals("^");
+        return operationForToken(token).getAssociative() == Associative.Left;
     }
     
     private int comparePrecedence(Token token1, Token token2) {
@@ -112,21 +125,14 @@ public class RPNParser {
     }
     
     private int precedenceForToken(Token token) {
-        char symbol = token.text.charAt(0);
-        switch (symbol) {
-            case '-':
-            case '+':
-                return 1;
-            
-            case '*':
-            case '/':
-                return 2;
-                
-            case '^':
-                return 3;
-                
-            default:
-                throw new ParserException("Unknown token", token);
-        }
+        return operationForToken(token).getPrecedence();
+    }
+    
+    private OperationDescriptor operationForToken(Token token) {
+        Optional<OperationDescriptor> operation = symbolsRegister.operationForSymbol(token.text);
+        if (!operation.isPresent())
+            throw new ParserException("Unknown symbol: " + token.text, token);
+    
+        return operation.get();
     }
 }
