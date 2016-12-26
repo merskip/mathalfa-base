@@ -1,46 +1,58 @@
 package pl.merskip.mathalfa.elementary;
 
+import org.apache.commons.lang3.NotImplementedException;
 import pl.merskip.mathalfa.core.Number;
 import pl.merskip.mathalfa.core.Operation;
-import pl.merskip.mathalfa.core.OperationDescriptor;
-import pl.merskip.mathalfa.core.SymbolsRegister;
+import pl.merskip.mathalfa.core.fragment.Fragment;
+import pl.merskip.mathalfa.core.fragment.FragmentsRegister;
+import pl.merskip.mathalfa.core.fragment.SymbolReader;
 
-import static pl.merskip.mathalfa.core.OperationDescriptor.Associative.Left;
-
-public class ElementaryRegister extends SymbolsRegister {
+public class ElementaryRegister extends FragmentsRegister {
     
     @Override
     protected void registerSymbols() {
+        register(new SymbolReader<Number>() {
+            
+            @Override
+            public Number create(Fragment fragment) {
+                throw new NotImplementedException("TODO");
+            }
+    
+            @Override
+            public boolean fulfills(String buffer, char c) {
+                return buffer.isEmpty()
+                        && Character.isDigit(c);
+            }
+        });
         
-        registerNumberClass(RationalNumber.class);
+        register(new SymbolReader<Operation>() {
+            
+            @Override
+            public Operation create(Fragment fragment) {
+                throw  new NotImplementedException("TODO");
+            }
     
-        registerOperation(new OperationDescriptor("+", 1, Left,
-                RationalNumberAddition.class));
-        registerOperation(new OperationDescriptor("-", 1, Left,
-                RationalNumberSubtraction.class));
+            @Override
+            public boolean fulfills(String buffer, char c) {
+                return buffer.isEmpty()
+                        && c == '+';
+            }
+        });
+    
+        register(new SymbolReader<Operation>() {
+        
+            @Override
+            public Operation create(Fragment fragment) {
+                throw  new NotImplementedException("TODO");
+            }
+        
+            @Override
+            public boolean fulfills(String buffer, char c) {
+                return buffer.isEmpty()
+                        && c == '-';
+            }
+        });
+    
     }
     
-    @Override
-    public boolean symbolIsNumber(String symbol) {
-        for (char c : symbol.toCharArray()) {
-            if (!Character.isDigit(c))
-                return false;
-        }
-        return true;
-    }
-    
-    @Override
-    public Number numberFromSymbol(String symbol) {
-        int numerator = Integer.parseInt(symbol);
-        return new RationalNumber(numerator, 1);
-    }
-    
-    @Override
-    public Operation operationFromSymbol(String symbol, OperationDescriptor operation) {
-        try {
-            return operation.getOperationClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

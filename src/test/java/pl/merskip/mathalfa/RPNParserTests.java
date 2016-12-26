@@ -5,8 +5,8 @@
 //import pl.merskip.mathalfa.core.Expression;
 //import pl.merskip.mathalfa.elementary.RationalNumber;
 //import pl.merskip.mathalfa.elementary.RationalNumberAddition;
-//import pl.merskip.mathalfa.infixparser.Fragment;
-//import pl.merskip.mathalfa.infixparser.FragmentsSplitter;
+//import pl.merskip.mathalfa.core.fragment.Fragment;
+//import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 //
 //import java.util.List;
 //

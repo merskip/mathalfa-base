@@ -3,7 +3,7 @@
 //import pl.merskip.mathalfa.core.OperationDescriptor;
 //import pl.merskip.mathalfa.core.OperationDescriptor.Associative;
 //import pl.merskip.mathalfa.core.Symbol;
-//import pl.merskip.mathalfa.core.SymbolsRegister;
+//import pl.merskip.mathalfa.core.fragment.FragmentsRegister;
 //import pl.merskip.mathalfa.elementary.ReversePolishNotationExpression;
 //
 //import java.util.ArrayList;
@@ -15,10 +15,10 @@
 //public class RPNParser {
 //
 //    private List<Fragment> fragments;
-//    private SymbolsRegister symbolsRegister;
+//    private FragmentsRegister symbolsRegister;
 //
 //
-//    public RPNParser(List<Fragment> fragments, SymbolsRegister symbolsRegister) {
+//    public RPNParser(List<Fragment> fragments, FragmentsRegister symbolsRegister) {
 //        this.fragments = fragments;
 //        this.symbolsRegister = symbolsRegister;
 //    }
@@ -72,7 +72,7 @@
 //                }
 //
 //                if (!topOperation.text.equals("(")) {
-//                    throw  new ParserException("Not found opening parenthesis", fragment);
+//                    throw  new FragmentException("Not found opening parenthesis", fragment);
 //                }
 //            }
 //            else {
@@ -84,7 +84,7 @@
 //            Fragment fragment = operationsStack.peek();
 //
 //            if (fragment.text.equals("(")) {
-//                throw new ParserException("Unexpected parenthesis", fragment);
+//                throw new FragmentException("Unexpected parenthesis", fragment);
 //            }
 //
 //            output.add(tokenToSymbol(fragment));
@@ -106,7 +106,7 @@
 //            return symbolsRegister.operationFromSymbol(fragment.text, operationForToken(fragment));
 //        }
 //        else {
-//            throw new ParserException("Unknown symbol: " + fragment.text, fragment);
+//            throw new FragmentException("Unknown symbol: " + fragment.text, fragment);
 //        }
 //    }
 //
@@ -131,7 +131,7 @@
 //    private OldOperationDescriptor operationForToken(Fragment fragment) {
 //        Optional<OldOperationDescriptor> operation = symbolsRegister.operationForSymbol(fragment.text);
 //        if (!operation.isPresent())
-//            throw new ParserException("Unknown symbol: " + fragment.text, fragment);
+//            throw new FragmentException("Unknown symbol: " + fragment.text, fragment);
 //
 //        return operation.get();
 //    }

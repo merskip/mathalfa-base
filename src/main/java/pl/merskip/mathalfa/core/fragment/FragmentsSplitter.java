@@ -1,6 +1,4 @@
-package pl.merskip.mathalfa.infixparser;
-
-import pl.merskip.mathalfa.core.SymbolTextReader;
+package pl.merskip.mathalfa.core.fragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,8 +7,11 @@ import java.util.List;
 
 public class FragmentsSplitter {
     
+    public static final Character[] DEFAULT_WHITESPACES =
+            new Character[] {' ', '\t', '\n'};
+    
     private String plainText;
-    private List<SymbolTextReader> readers;
+    private List<FragmentReader> readers;
     private List<Character> whitespaces;
     
     private Fragment.Builder fragmentBuilder;
@@ -22,7 +23,11 @@ public class FragmentsSplitter {
         this.whitespaces = new ArrayList<>();
     }
     
-    public void addReaders(SymbolTextReader... readers) {
+    public void addReadersFromRegister(FragmentsRegister register) {
+        this.readers.addAll(register.getFragmentReaders());
+    }
+    
+    public void addReaders(FragmentReader... readers) {
         this.readers.addAll(Arrays.asList(readers));
     }
     

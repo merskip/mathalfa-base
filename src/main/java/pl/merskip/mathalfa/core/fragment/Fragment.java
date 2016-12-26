@@ -1,6 +1,4 @@
-package pl.merskip.mathalfa.infixparser;
-
-import pl.merskip.mathalfa.core.SymbolTextReader;
+package pl.merskip.mathalfa.core.fragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,9 +8,9 @@ public class Fragment {
     
     private String text;
     private int index;
-    private SymbolTextReader reader;
+    private FragmentReader reader;
     
-    private Fragment(String text, int index, SymbolTextReader reader) {
+    private Fragment(String text, int index, FragmentReader reader) {
         this.text = text;
         this.index = index;
         this.reader = reader;
@@ -26,7 +24,7 @@ public class Fragment {
         return index;
     }
     
-    public SymbolTextReader getReader() {
+    public FragmentReader getReader() {
         return reader;
     }
     
@@ -44,9 +42,9 @@ public class Fragment {
         private String plainText;
         private int index;
         private String buffer;
-        private List<SymbolTextReader> readers;
+        private List<FragmentReader> readers;
     
-        Builder(String plainText, int index, List<SymbolTextReader> readers) {
+        Builder(String plainText, int index, List<FragmentReader> readers) {
             this.plainText = plainText;
             this.index = index;
             this.buffer = "";
@@ -58,9 +56,9 @@ public class Fragment {
         }
     
         boolean append(char c) {
-            List<SymbolTextReader> readers = new ArrayList<>(this.readers.size());
-            for (SymbolTextReader reader : this.readers) {
-                if (reader.fulfill(buffer, c)) {
+            List<FragmentReader> readers = new ArrayList<>(this.readers.size());
+            for (FragmentReader reader : this.readers) {
+                if (reader.fulfills(buffer, c)) {
                     readers.add(reader);
                 }
             }
@@ -84,11 +82,11 @@ public class Fragment {
             Fragment fragment = new Fragment(buffer, index, null);
             
             if (readers.size() > 1)
-                throw new ParserException("Symbol is ambiguous" +
+                throw new FragmentException("Fragment is ambiguous" +
                         " (" + readers.size() + " readers)", plainText, fragment);
             
             if (readers.isEmpty())
-                throw new ParserException("Unknown symbol", plainText, fragment);
+                throw new FragmentException("Unknown fragment", plainText, fragment);
             
             fragment.reader = readers.get(0);
             return fragment;

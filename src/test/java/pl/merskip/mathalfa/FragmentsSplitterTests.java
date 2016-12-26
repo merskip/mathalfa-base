@@ -2,15 +2,16 @@ package pl.merskip.mathalfa;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.merskip.mathalfa.infixparser.Fragment;
-import pl.merskip.mathalfa.infixparser.FragmentsSplitter;
+import pl.merskip.mathalfa.core.fragment.Fragment;
+import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
+import pl.merskip.mathalfa.elementary.ElementaryRegister;
 
 import java.util.List;
 
-public class TokensParserTests {
+public class FragmentsSplitterTests {
     
     @Test
-    public void splitToTokens() {
+    public void splitterTest1() {
         String plainText = "1 + (3 \t+4)\n--1 ";
         FragmentsSplitter splitter = new FragmentsSplitter(plainText);
         splitter.addWhitespaces(' ', '\t', '\n');
@@ -30,6 +31,17 @@ public class TokensParserTests {
             Assert.assertNotEquals(0, fragment.getText().length());
         }
         System.out.print("\n");
+    }
+    
+    @Test
+    public void splitterTest2() {
+        String plainText = "1 + 2 - 3";
+        FragmentsSplitter splitter = new FragmentsSplitter(plainText);
+        splitter.addReadersFromRegister(new ElementaryRegister());
+        splitter.addWhitespaces(FragmentsSplitter.DEFAULT_WHITESPACES);
+    
+        List<Fragment> fragments = splitter.split();
         
+        Assert.assertEquals(5, fragments.size());
     }
 }

@@ -1,14 +1,14 @@
-package pl.merskip.mathalfa.infixparser;
+package pl.merskip.mathalfa.core.fragment;
 
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ParserException extends RuntimeException {
+public class FragmentException extends RuntimeException {
     
     private String plainText;
     private Fragment fragment;
     
-    public ParserException(String message, String plainText, Fragment fragment) {
+    public FragmentException(String message, String plainText, Fragment fragment) {
         super(message);
         this.plainText = plainText;
         this.fragment = fragment;
