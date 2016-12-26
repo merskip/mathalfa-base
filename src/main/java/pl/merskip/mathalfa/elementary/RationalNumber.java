@@ -7,6 +7,10 @@ public class RationalNumber implements Number {
     private int numerator;
     private int denominator;
 
+    public RationalNumber(int numerator) {
+        this(numerator, 1);
+    }
+    
     public RationalNumber(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
