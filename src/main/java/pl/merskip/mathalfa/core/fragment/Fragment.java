@@ -28,15 +28,6 @@ public class Fragment {
         return reader;
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (obj == this) return true;
-        if (!(obj instanceof Fragment)) return false;
-        Fragment otherFragment = (Fragment) obj;
-        return index == otherFragment.index && text.equals(otherFragment.text);
-    }
-    
     static class Builder {
         
         private String plainText;
@@ -49,10 +40,6 @@ public class Fragment {
             this.index = index;
             this.buffer = "";
             this.readers = new ArrayList<>(readers);
-        }
-        
-        private boolean isEmpty() {
-            return buffer.isEmpty();
         }
     
         boolean append(char c) {

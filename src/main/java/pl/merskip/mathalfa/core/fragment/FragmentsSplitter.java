@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FragmentsSplitter {
     
-    public static final Character[] DEFAULT_WHITESPACES =
+    private static final Character[] DEFAULT_WHITESPACES =
             new Character[] {' ', '\t', '\n'};
     
     private String plainText;
@@ -17,14 +17,20 @@ public class FragmentsSplitter {
     private Fragment.Builder fragmentBuilder;
     private List<Fragment> fragments;
     
+    public FragmentsSplitter(String plainText, FragmentsRegister register) {
+        this(plainText);
+        this.readers.addAll(register.getFragmentReaders());
+        this.whitespaces.addAll(Arrays.asList(DEFAULT_WHITESPACES));
+    }
+    
     public FragmentsSplitter(String plainText) {
         this.plainText = plainText;
         this.readers = new ArrayList<>();
         this.whitespaces = new ArrayList<>();
     }
     
-    public void addReadersFromRegister(FragmentsRegister register) {
-        this.readers.addAll(register.getFragmentReaders());
+    public String getPlainText() {
+        return plainText;
     }
     
     public void addReaders(FragmentReader... readers) {
