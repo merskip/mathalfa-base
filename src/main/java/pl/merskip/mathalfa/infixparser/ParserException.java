@@ -1,15 +1,37 @@
 package pl.merskip.mathalfa.infixparser;
 
+
+import org.apache.commons.lang3.StringUtils;
+
 public class ParserException extends RuntimeException {
     
-    private Token token;
+    private String plainText;
+    private Fragment fragment;
     
-    public ParserException(String message, Token token) {
+    public ParserException(String message, String plainText, Fragment fragment) {
         super(message);
-        this.token = token;
+        this.plainText = plainText;
+        this.fragment = fragment;
     }
     
-    public Token getToken() {
-        return token;
+    public String getPlainText() {
+        return plainText;
     }
+    
+    public Fragment getFragment() {
+        return fragment;
+    }
+    
+    @Override
+    public String getMessage() {
+        String message = super.getMessage();
+        message += "\n" + plainText + "\n";
+        message += StringUtils.repeat(' ', fragment.getIndex());
+        message += StringUtils.repeat('^', fragment.getText().length());
+        if (fragment.getText().isEmpty()) {
+            message += "^";
+        }
+        return message;
+    }
+    
 }

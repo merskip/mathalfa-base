@@ -2,33 +2,34 @@ package pl.merskip.mathalfa;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.merskip.mathalfa.infixparser.Token;
-import pl.merskip.mathalfa.infixparser.TokensParser;
+import pl.merskip.mathalfa.infixparser.Fragment;
+import pl.merskip.mathalfa.infixparser.FragmentsSplitter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TokensParserTests {
     
     @Test
     public void splitToTokens() {
-        String plainText = "1 + (3  +4) +1";
-        List<Token> tokens = new TokensParser(plainText).splitToTokens();
+        String plainText = "1 + (3 \t+4)\n--1 ";
+        FragmentsSplitter splitter = new FragmentsSplitter(plainText);
+        splitter.addWhitespaces(' ', '\t', '\n');
+        splitter.addReaders((buffer, c) -> buffer.isEmpty() && c == '(' || c == ')');
+        splitter.addReaders((buffer, c) -> Character.isDigit(c));
+        splitter.addReaders((buffer, c) -> buffer.isEmpty() && c == '+');
+        splitter.addReaders((buffer, c) -> buffer.isEmpty() && c == '-');
     
-        System.out.println("\"" + plainText + "\" -> " + tokens.stream()
-                .map(token -> token.text)
-                .collect(Collectors.joining(" ")));
+        List<Fragment> fragments = splitter.split();
         
-        Assert.assertEquals(9, tokens.size());
+        Assert.assertEquals(10, fragments.size());
+        System.out.printf("\"%s\" -> ", plainText);
+        for (Fragment fragment : fragments) {
+            Assert.assertNotNull(fragment);
+            System.out.print(" " + fragment.getText());
+            
+            Assert.assertNotEquals(0, fragment.getText().length());
+        }
+        System.out.print("\n");
         
-        Assert.assertEquals(new Token('1', 0), tokens.get(0));
-        Assert.assertEquals(new Token('+', 2), tokens.get(1));
-        Assert.assertEquals(new Token('(', 4), tokens.get(2));
-        Assert.assertEquals(new Token('3', 5), tokens.get(3));
-        Assert.assertEquals(new Token('+', 8), tokens.get(4));
-        Assert.assertEquals(new Token('4', 9), tokens.get(5));
-        Assert.assertEquals(new Token(')', 10), tokens.get(6));
-        Assert.assertEquals(new Token('+', 12), tokens.get(7));
-        Assert.assertEquals(new Token('1', 13), tokens.get(8));
     }
 }
