@@ -5,18 +5,21 @@ import org.junit.Test;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 import pl.merskip.mathalfa.elementary.fragment.ElementaryRegister;
-import pl.merskip.mathalfa.infixparser.ReversePolishNotationConverter;
+import pl.merskip.mathalfa.infixparser.PostfixConverter;
 
 import java.util.List;
 
-public class RPNParserTests {
+public class PostfixConverterTests {
 
     @Test
-    public void rpnParser() {
+    public void test1() {
         String plainText = "1+(3+4)+1";
-        ReversePolishNotationConverter reversePolishNotationConverter = new ReversePolishNotationConverter(new FragmentsSplitter(plainText, new ElementaryRegister()));
+        PostfixConverter postfixConverter =
+                new PostfixConverter(
+                        new FragmentsSplitter(
+                                new ElementaryRegister(), plainText));
     
-        List<Fragment> fragments = reversePolishNotationConverter.convert();
+        List<Fragment> fragments = postfixConverter.convert();
         
         System.out.print("\"" + plainText + "\" ->");
         fragments.forEach(fragment -> System.out.print(" " + fragment.getText()));

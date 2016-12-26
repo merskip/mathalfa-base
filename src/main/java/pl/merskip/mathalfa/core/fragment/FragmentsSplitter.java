@@ -17,7 +17,7 @@ public class FragmentsSplitter {
     private Fragment.Builder fragmentBuilder;
     private List<Fragment> fragments;
     
-    public FragmentsSplitter(String plainText, FragmentsRegister register) {
+    public FragmentsSplitter(FragmentsRegister register, String plainText) {
         this(plainText);
         this.readers.addAll(register.getFragmentReaders());
         this.whitespaces.addAll(Arrays.asList(DEFAULT_WHITESPACES));

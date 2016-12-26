@@ -11,17 +11,21 @@ import java.util.List;
 import java.util.Stack;
 
 
-public class ReversePolishNotationConverter {
+public class PostfixConverter {
     
     private String plainText;
     private List<Fragment> fragments;
     
-    public ReversePolishNotationConverter(FragmentsSplitter splitter) {
+    public PostfixConverter(FragmentsSplitter splitter) {
         splitter.addReaders(new ParenthesisFragmentReader());
         this.fragments = splitter.split();
         this.plainText = splitter.getPlainText();
     }
-
+    
+    String getPlainText() {
+        return plainText;
+    }
+    
     public List<Fragment> convert() {
         List<Fragment> output = new ArrayList<>(fragments.size());
         Stack<Fragment> operationsStack = new Stack<>();

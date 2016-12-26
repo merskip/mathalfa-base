@@ -1,9 +1,12 @@
 package pl.merskip.mathalfa.elementary.fragment;
 
 import pl.merskip.mathalfa.core.Operation;
+import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.SymbolReader;
-import pl.merskip.mathalfa.elementary.RationalNumberAddition;
+import pl.merskip.mathalfa.elementary.NumberAddition;
+
+import java.util.Stack;
 
 class AdditionFragmentReader implements SymbolReader<Operation> {
     
@@ -23,7 +26,9 @@ class AdditionFragmentReader implements SymbolReader<Operation> {
     }
     
     @Override
-    public Operation create(Fragment fragment) {
-        return new RationalNumberAddition();
+    public Operation create(Fragment fragment, Stack<Symbol> parameters) {
+        Symbol secondParam = parameters.pop();
+        Symbol firstParam = parameters.pop();
+        return new NumberAddition(firstParam, secondParam);
     }
 }

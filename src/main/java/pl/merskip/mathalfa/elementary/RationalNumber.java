@@ -25,7 +25,10 @@ public class RationalNumber implements Number {
     }
 
     public String toPlainText() {
-        return String.format("%d/%d", numerator, denominator);
+        if (denominator != 1)
+            return String.format("%d/%d", numerator, denominator);
+        else
+            return String.valueOf(numerator);
     }
 
     public double toDouble() {
