@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mathalfa" />
+        <module name="mathalfa-base" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="mathalfa" target="1.8" />
+      <module name="mathalfa-base" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

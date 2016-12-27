@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/mathalfa.iml" filepath="$PROJECT_DIR$/mathalfa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mathalfa-base.iml" filepath="$PROJECT_DIR$/mathalfa-base.iml" />
     </modules>
   </component>
 </project>
