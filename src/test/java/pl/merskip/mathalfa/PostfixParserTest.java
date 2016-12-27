@@ -9,7 +9,7 @@ import pl.merskip.mathalfa.infixparser.PostfixConverter;
 import pl.merskip.mathalfa.infixparser.PostfixParser;
 import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
-public class PostfixParserTests {
+public class PostfixParserTest {
     
     @Test
     public void test1() {

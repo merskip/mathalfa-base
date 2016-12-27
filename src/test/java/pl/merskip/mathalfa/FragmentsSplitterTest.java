@@ -7,7 +7,7 @@ import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 
 import java.util.List;
 
-public class FragmentsSplitterTests {
+public class FragmentsSplitterTest {
     
     @Test
     public void splitterTest1() {

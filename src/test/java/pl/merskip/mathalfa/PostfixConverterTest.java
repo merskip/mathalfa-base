@@ -9,7 +9,7 @@ import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
 import java.util.List;
 
-public class PostfixConverterTests {
+public class PostfixConverterTest {
 
     @Test
     public void test1() {

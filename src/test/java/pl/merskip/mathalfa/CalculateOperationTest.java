@@ -7,7 +7,7 @@ import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.infixparser.PostfixParser;
 import pl.merskip.mathalfa.operation.CalculateOperation;
 
-public class CalculateOperationTests {
+public class CalculateOperationTest {
     
     @Test
     public void test1() {
