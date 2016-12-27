@@ -4,7 +4,7 @@ import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 import pl.merskip.mathalfa.core.fragment.SymbolReader;
-import pl.merskip.mathalfa.elementary.fragment.ElementaryRegister;
+import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
 import java.util.List;
 import java.util.Stack;
@@ -23,7 +23,7 @@ public class PostfixParser {
         return new PostfixParser(
                 new PostfixConverter(
                         new FragmentsSplitter(
-                                new ElementaryRegister(), plainText)))
+                                SharedFragmentsRegister.getInstance(), plainText)))
                 .parseAndGetRootSymbol();
     }
     

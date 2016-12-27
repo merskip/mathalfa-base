@@ -5,10 +5,11 @@ import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.SymbolReader;
 import pl.merskip.mathalfa.elementary.RationalNumber;
+import pl.merskip.mathalfa.shared.SharedFragmentReader;
 
 import java.util.Stack;
 
-class NumberFragmentReader implements SymbolReader<Number> {
+public class NumberFragmentReader implements SymbolReader<Number>, SharedFragmentReader {
     
     @Override
     public boolean fulfills(String buffer, char c) {

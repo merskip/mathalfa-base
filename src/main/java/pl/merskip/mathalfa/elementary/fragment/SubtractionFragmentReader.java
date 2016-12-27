@@ -5,10 +5,11 @@ import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.SymbolReader;
 import pl.merskip.mathalfa.elementary.NumberSubtraction;
+import pl.merskip.mathalfa.shared.SharedFragmentReader;
 
 import java.util.Stack;
 
-class SubtractionFragmentReader implements SymbolReader<Operator> {
+public class SubtractionFragmentReader implements SymbolReader<Operator>, SharedFragmentReader {
     
     @Override
     public boolean fulfills(String buffer, char c) {

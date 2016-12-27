@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import pl.merskip.mathalfa.core.fragment.Fragment;
 import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
-import pl.merskip.mathalfa.elementary.fragment.ElementaryRegister;
 import pl.merskip.mathalfa.infixparser.PostfixConverter;
+import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
 import java.util.List;
 
@@ -16,8 +16,7 @@ public class PostfixConverterTests {
         String plainText = "1+(3+4)+1";
         PostfixConverter postfixConverter =
                 new PostfixConverter(
-                        new FragmentsSplitter(
-                                new ElementaryRegister(), plainText));
+                        new FragmentsSplitter(SharedFragmentsRegister.getInstance(), plainText));
     
         List<Fragment> fragments = postfixConverter.convert();
         

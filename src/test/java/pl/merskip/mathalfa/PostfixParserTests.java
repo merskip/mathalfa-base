@@ -1,11 +1,13 @@
 package pl.merskip.mathalfa;
 
+import org.junit.Assert;
 import org.junit.Test;
 import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
-import pl.merskip.mathalfa.elementary.fragment.ElementaryRegister;
+import pl.merskip.mathalfa.elementary.NumberAddition;
 import pl.merskip.mathalfa.infixparser.PostfixConverter;
 import pl.merskip.mathalfa.infixparser.PostfixParser;
+import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
 public class PostfixParserTests {
     
@@ -16,8 +18,10 @@ public class PostfixParserTests {
                 new PostfixParser(
                         new PostfixConverter(
                                 new FragmentsSplitter(
-                                        new ElementaryRegister(), plainText)));
+                                        SharedFragmentsRegister.getInstance(), plainText)));
         
         Symbol rootSymbol = parser.parseAndGetRootSymbol();
+    
+        Assert.assertTrue(rootSymbol instanceof NumberAddition);
     }
 }
