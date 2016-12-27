@@ -14,6 +14,12 @@ public class FragmentException extends RuntimeException {
         this.fragment = fragment;
     }
     
+    public FragmentException(String message, String plainText, Fragment fragment, Throwable cause) {
+        super(message, cause);
+        this.plainText = plainText;
+        this.fragment = fragment;
+    }
+    
     public String getPlainText() {
         return plainText;
     }

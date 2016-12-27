@@ -2,10 +2,12 @@ package pl.merskip.mathalfa.infixparser;
 
 import pl.merskip.mathalfa.core.Symbol;
 import pl.merskip.mathalfa.core.fragment.Fragment;
+import pl.merskip.mathalfa.core.fragment.FragmentException;
 import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 import pl.merskip.mathalfa.core.fragment.SymbolReader;
 import pl.merskip.mathalfa.shared.SharedFragmentsRegister;
 
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -33,11 +35,14 @@ public class PostfixParser {
         for (Fragment fragment : fragments) {
         
             SymbolReader reader = (SymbolReader) fragment.getReader();
-            parameters.push(reader.create(fragment, parameters));
+            try {
+                parameters.push(reader.create(fragment, parameters));
+            } catch (EmptyStackException e) {
+                throw new FragmentException("Too few arguments", plainText, fragment, e);
+            }
         }
         
-        assert parameters.size() == 1;
-        return parameters.pop();
+        return parameters.empty() ? null : parameters.pop();
     }
     
 }
