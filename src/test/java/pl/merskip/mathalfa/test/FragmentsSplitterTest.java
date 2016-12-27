@@ -8,6 +8,7 @@ import pl.merskip.mathalfa.core.fragment.FragmentsSplitter;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static pl.merskip.mathalfa.test.TestUtils.assertEqualsFragment;
 
 public class FragmentsSplitterTest {
     
@@ -152,11 +153,5 @@ public class FragmentsSplitterTest {
         assertEquals(2, fragments.size());
         assertEqualsFragment(0, "+",fragments.get(0));
         assertEqualsFragment(2, "-", fragments.get(1));
-    }
-    
-    private static void assertEqualsFragment(int exceptedIndex, String exceptedText,
-                                             Fragment fragment) {
-        assertEquals(exceptedIndex, fragment.getIndex());
-        assertEquals(exceptedText, fragment.getText());
     }
 }
