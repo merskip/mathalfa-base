@@ -1,4 +1,4 @@
-package pl.merskip.mathalfa;
+package pl.merskip.mathalfa.test;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -44,7 +44,6 @@ public class FragmentsSplitter {
     public List<Fragment> split() {
         fragments = new LinkedList<>();
         
-        
         for (int i = 0; i < plainText.length(); i++) {
             char c = plainText.charAt(i);
     
