@@ -1,5 +1,7 @@
 package pl.merskip.mathalfa.core;
 
-public interface Operation extends Symbol {
-
+public interface Operation {
+    
+    Symbol executeForResult(Symbol symbol);
+    
 }

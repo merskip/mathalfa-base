@@ -1,8 +1,11 @@
 package pl.merskip.mathalfa.elementary;
 
 import pl.merskip.mathalfa.core.Number;
+import pl.merskip.mathalfa.core.Operation;
+import pl.merskip.mathalfa.core.Symbol;
+import pl.merskip.mathalfa.operation.CalculateOperation.Calculable;
 
-public class RationalNumber implements Number {
+public class RationalNumber implements Number, Calculable {
 
     private int numerator;
     private int denominator;
@@ -16,14 +19,19 @@ public class RationalNumber implements Number {
         this.denominator = denominator;
     }
 
-    public int getNumerator() {
+    int getNumerator() {
         return numerator;
     }
 
-    public int getDenominator() {
+    int getDenominator() {
         return denominator;
     }
-
+    
+    @Override
+    public Symbol calculate(Operation operation) {
+        return this;
+    }
+    
     public String toPlainText() {
         if (denominator != 1)
             return String.format("%d/%d", numerator, denominator);
@@ -34,5 +42,5 @@ public class RationalNumber implements Number {
     public double toDouble() {
         return (double) numerator / (double) denominator;
     }
-
+    
 }

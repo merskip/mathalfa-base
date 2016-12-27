@@ -18,6 +18,6 @@ public class PostfixParserTests {
                                 new FragmentsSplitter(
                                         new ElementaryRegister(), plainText)));
         
-        Symbol rootSymbol = parser.parse();
+        Symbol rootSymbol = parser.parseAndGetRootSymbol();
     }
 }
