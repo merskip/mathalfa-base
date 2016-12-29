@@ -18,6 +18,9 @@ public class CalculateOperation implements Operation {
             Calculable calculableRootSymbol = (Calculable) symbol;
             return calculableRootSymbol.calculate(this);
         }
+        else if (symbol == null) {
+            return null;
+        }
         else {
             throw new NotImplementedException(symbol.getClass()
                     + " does not implemented " + Calculable.class);

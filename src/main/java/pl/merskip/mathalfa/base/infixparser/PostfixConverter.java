@@ -58,6 +58,10 @@ public class PostfixConverter {
                 operationsStack.push(fragment);
             }
             else if (isClosingParenthesis(fragment)) {
+                if (operationsStack.isEmpty()) {
+                    throw new FragmentException("Not found opening parenthesis", fragment);
+                }
+                
                 Fragment topOperation = operationsStack.peek();
 
                 while (!isOpeningParenthesis(topOperation)) {
@@ -88,7 +92,7 @@ public class PostfixConverter {
             Fragment fragment = operationsStack.peek();
 
             if (isOpeningParenthesis(fragment)) {
-                throw new FragmentException("Unexpected opening parenthesis", fragment);
+                throw new FragmentException("Not found closing parenthesis", fragment);
             }
 
             output.add(fragment);
