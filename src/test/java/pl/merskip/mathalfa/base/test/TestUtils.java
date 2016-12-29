@@ -17,15 +17,12 @@ import static org.junit.Assert.assertEquals;
 
 class TestUtils {
     
-    private static String lastConvertedPlainTest = null;
-    
     private TestUtils() {
         
     }
     
-    static void print(List<Fragment> fragments) {
-        if (lastConvertedPlainTest != null)
-            System.out.print("\"" + lastConvertedPlainTest + "\" ->");
+    static void print(String plainText, List<Fragment> fragments) {
+        System.out.print("\"" + plainText + "\" ->");
         fragments.forEach(fragment ->
                 System.out.print(" \033[4m" + fragment.getText() + "\033[0m"));
         System.out.println();
@@ -37,13 +34,12 @@ class TestUtils {
         assertEquals(exceptedText, fragment.getText());
     }
     
-    static PostfixParser getParser(String plainText) {
-        return new PostfixParser(getConverter(plainText));
+    static PostfixParser getParser() {
+        return new PostfixParser(getConverter());
     }
     
-    static PostfixConverter getConverter(String plainText) {
-        lastConvertedPlainTest = plainText;
-        FragmentsSplitter splitter = new FragmentsSplitter(plainText);
+    static PostfixConverter getConverter() {
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addWhitespaces(' ');
         splitter.addReaders(numberReader(), additionReader());
         return new PostfixConverter(splitter);

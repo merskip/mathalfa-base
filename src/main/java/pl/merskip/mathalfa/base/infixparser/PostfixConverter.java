@@ -13,20 +13,16 @@ import java.util.Stack;
 
 public class PostfixConverter {
     
-    private String plainText;
-    private List<Fragment> fragments;
+    private FragmentsSplitter splitter;
     
     public PostfixConverter(FragmentsSplitter splitter) {
-        splitter.addReaders(new ParenthesisFragmentReader());
-        this.fragments = splitter.split();
-        this.plainText = splitter.getPlainText();
+        this.splitter = splitter;
+        this.splitter.addReaders(new ParenthesisFragmentReader());
     }
     
-    String getPlainText() {
-        return plainText;
-    }
-    
-    public List<Fragment> convert() {
+    public List<Fragment> convert(String plainText) {
+        List<Fragment> fragments = splitter.split(plainText);
+        
         List<Fragment> output = new ArrayList<>(fragments.size());
         Stack<Fragment> operationsStack = new Stack<>();
 

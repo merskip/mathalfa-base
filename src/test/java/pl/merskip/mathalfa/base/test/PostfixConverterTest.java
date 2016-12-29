@@ -15,9 +15,10 @@ public class PostfixConverterTest {
 
     @Test
     public void convert_emptyString_returnsEmptyList() {
-        PostfixConverter converter = getConverter("");
+        String plainText = "";
+        PostfixConverter converter = getConverter();
     
-        List<Fragment> fragments = converter.convert();
+        List<Fragment> fragments = converter.convert(plainText);
         
         assertNotNull(fragments);
         assertTrue(fragments.isEmpty());
@@ -25,9 +26,10 @@ public class PostfixConverterTest {
     
     @Test
     public void convert_oneSymbol_returnsOneSymbol() {
-        PostfixConverter converter = getConverter("1");
+        String plainText = "1";
+        PostfixConverter converter = getConverter();
         
-        List<Fragment> fragments = converter.convert();
+        List<Fragment> fragments = converter.convert(plainText);
         
         assertEquals(1, fragments.size());
         assertEqualsFragment(0, "1", fragments.get(0));
@@ -35,10 +37,11 @@ public class PostfixConverterTest {
     
     @Test
     public void convert_simpleAddition_returnsTwoNumberThenAddition() {
-        PostfixConverter converter = getConverter("1+2");
+        String plainText = "1+2";
+        PostfixConverter converter = getConverter();
     
-        List<Fragment> fragments = converter.convert();
-        print(fragments);
+        List<Fragment> fragments = converter.convert(plainText);
+        print(plainText, fragments);
     
         assertEquals(3, fragments.size());
         assertEqualsFragment(0, "1", fragments.get(0));
@@ -48,10 +51,11 @@ public class PostfixConverterTest {
     
     @Test
     public void convert_twoAddition_returnsCorrectResult() {
-        PostfixConverter converter = getConverter("1+2+3");
+        String plainText = "1+2+3";
+        PostfixConverter converter = getConverter();
     
-        List<Fragment> fragments = converter.convert();
-        print(fragments);
+        List<Fragment> fragments = converter.convert(plainText);
+        print(plainText, fragments);
     
         assertEquals(5, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();
@@ -64,10 +68,11 @@ public class PostfixConverterTest {
     
     @Test
     public void convert_additionWithParenthesis_returnsCorrectResult() {
-        PostfixConverter converter = getConverter("1+(2+3)");
+        String plainText = "1+(2+3)";
+        PostfixConverter converter = getConverter();
     
-        List<Fragment> fragments = converter.convert();
-        print(fragments);
+        List<Fragment> fragments = converter.convert(plainText);
+        print(plainText, fragments);
     
         assertEquals(5, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();
@@ -80,10 +85,11 @@ public class PostfixConverterTest {
     
     @Test
     public void convert_additionWithTwoParenthesis_returnsCorrectResult() {
-        PostfixConverter converter = getConverter("1+((2+3)+4)");
+        String plainText = "1+((2+3)+4)";
+        PostfixConverter converter = getConverter();
         
-        List<Fragment> fragments = converter.convert();
-        print(fragments);
+        List<Fragment> fragments = converter.convert(plainText);
+        print(plainText, fragments);
         
         assertEquals(7, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();
@@ -98,30 +104,33 @@ public class PostfixConverterTest {
     
     @Test(expected = FragmentException.class)
     public void convert_missedClosingParenthesis_throwsFragmentException() {
-        PostfixConverter converter = getConverter("1+(2+3");
+        String plainText = "1+(2+3";
+        PostfixConverter converter = getConverter();
     
-        converter.convert();
+        converter.convert(plainText);
     }
     
     @Test(expected = FragmentException.class)
     public void convert_missedOpeningParenthesis_throwsFragmentException() {
-        PostfixConverter converter = getConverter("1+2+3)");
+        String plainText = "1+2+3)";
+        PostfixConverter converter = getConverter();
     
-        converter.convert();
+        converter.convert(plainText);
     }
     
     @Test(expected = FragmentException.class)
     public void convert_missedOneClosingParenthesis_throwsFragmentException() {
-        PostfixConverter converter = getConverter("1+((2+3)+4");
+        String plainText = "1+((2+3)+4";
+        PostfixConverter converter = getConverter();
     
-        converter.convert();
+        converter.convert(plainText);
     }
-    
     
     @Test(expected = FragmentException.class)
     public void convert_missedOneOpeningParenthesis_throwsFragmentException() {
-        PostfixConverter converter = getConverter("1+(2+3)+4)");
+        String plainText = "1+(2+3)+4)";
+        PostfixConverter converter = getConverter();
         
-        converter.convert();
+        converter.convert(plainText);
     }
 }

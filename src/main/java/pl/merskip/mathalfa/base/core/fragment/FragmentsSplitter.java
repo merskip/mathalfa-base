@@ -1,36 +1,27 @@
 package pl.merskip.mathalfa.base.core.fragment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class FragmentsSplitter {
     
-    private static final Character[] DEFAULT_WHITESPACES =
-            new Character[] {' ', '\t', '\n'};
-    
-    private String plainText;
     private List<FragmentReader> readers;
     private List<Character> whitespaces;
     
+    private String plainText;
     private Fragment.Builder fragmentBuilder;
     private List<Fragment> fragments;
     
-    public FragmentsSplitter(FragmentsRegister register, String plainText) {
-        this(plainText);
+    public FragmentsSplitter() {
+        this.readers = new LinkedList<>();
+        this.whitespaces = new LinkedList<>();
+    }
+    
+    public FragmentsSplitter(FragmentsRegister register) {
+        this();
         this.readers.addAll(register.getFragmentReaders());
-        this.whitespaces.addAll(Arrays.asList(DEFAULT_WHITESPACES));
-    }
-    
-    public FragmentsSplitter(String plainText) {
-        this.plainText = plainText;
-        this.readers = new ArrayList<>();
-        this.whitespaces = new ArrayList<>();
-    }
-    
-    public String getPlainText() {
-        return plainText;
+        this.whitespaces.addAll(register.getWhitespaces());
     }
     
     public void addReaders(FragmentReader... readers) {
@@ -41,7 +32,8 @@ public class FragmentsSplitter {
         this.whitespaces.addAll(Arrays.asList(whitespaces));
     }
     
-    public List<Fragment> split() {
+    public List<Fragment> split(String plainText) {
+        this.plainText = plainText;
         fragments = new LinkedList<>();
         
         for (int i = 0; i < plainText.length(); i++) {

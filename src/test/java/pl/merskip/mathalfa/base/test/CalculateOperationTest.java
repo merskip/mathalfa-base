@@ -6,6 +6,7 @@ import pl.merskip.mathalfa.base.core.Number;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.infixparser.PostfixParser;
 import pl.merskip.mathalfa.base.operation.CalculateOperation;
+import pl.merskip.mathalfa.base.shared.SharedPostfixParser;
 
 public class CalculateOperationTest {
     
@@ -13,8 +14,10 @@ public class CalculateOperationTest {
     public void test1() {
         String plainText = "1+2";
         CalculateOperation operation = new CalculateOperation();
+        PostfixParser parser = new SharedPostfixParser();
         
-        Number number = (Number) operation.executeForResult(PostfixParser.parser(plainText));
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
+        Number number = (Number) operation.executeForResult(rootSymbol);
         
         Assert.assertEquals(3.0, number.toDouble(), Double.MIN_VALUE);
     }
@@ -23,8 +26,10 @@ public class CalculateOperationTest {
     public void test2() {
         String plainText = "1-(2+3)";
         CalculateOperation operation = new CalculateOperation();
+        PostfixParser parser = new SharedPostfixParser();
     
-        Symbol result = operation.executeForResult(PostfixParser.parser(plainText));
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
+        Symbol result = operation.executeForResult(rootSymbol);
         
         Assert.assertTrue(result instanceof Number);
         Number number = (Number) result;

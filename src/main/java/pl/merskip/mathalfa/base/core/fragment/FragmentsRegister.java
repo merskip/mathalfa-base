@@ -1,14 +1,18 @@
 package pl.merskip.mathalfa.base.core.fragment;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class FragmentsRegister {
     
     private List<FragmentReader> fragmentReaders;
+    private List<Character> whitespaces;
     
     protected FragmentsRegister() {
         this.fragmentReaders = new LinkedList<>();
+        this.whitespaces = new LinkedList<>();
         
         registerSymbols();
     }
@@ -19,8 +23,16 @@ public abstract class FragmentsRegister {
         fragmentReaders.add(reader);
     }
     
+    protected void addWhitespaces(char... whitespace) {
+        Collections.addAll(Arrays.asList(whitespace));
+    }
+    
     List<FragmentReader> getFragmentReaders() {
         return fragmentReaders;
+    }
+    
+    List<Character> getWhitespaces() {
+        return whitespaces;
     }
 }
 

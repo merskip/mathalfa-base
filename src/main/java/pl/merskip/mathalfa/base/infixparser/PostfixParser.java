@@ -3,9 +3,7 @@ package pl.merskip.mathalfa.base.infixparser;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.core.fragment.Fragment;
 import pl.merskip.mathalfa.base.core.fragment.FragmentException;
-import pl.merskip.mathalfa.base.core.fragment.FragmentsSplitter;
 import pl.merskip.mathalfa.base.core.fragment.SymbolReader;
-import pl.merskip.mathalfa.base.shared.SharedFragmentsRegister;
 
 import java.util.EmptyStackException;
 import java.util.List;
@@ -13,23 +11,15 @@ import java.util.Stack;
 
 public class PostfixParser {
     
-    private String plainText;
-    private List<Fragment> fragments;
+    private PostfixConverter postfixConverter;
     
     public PostfixParser(PostfixConverter postfixConverter) {
-        this.fragments = postfixConverter.convert();
-        this.plainText = postfixConverter.getPlainText();
+        this.postfixConverter = postfixConverter;
     }
     
-    static public Symbol parser(String plainText) {
-        return new PostfixParser(
-                new PostfixConverter(
-                        new FragmentsSplitter(
-                                SharedFragmentsRegister.getInstance(), plainText)))
-                .parseAndGetRootSymbol();
-    }
+    public Symbol parseAndGetRootSymbol(String plainText) {
+        List<Fragment> fragments = postfixConverter.convert(plainText);
     
-    public Symbol parseAndGetRootSymbol() {
         Stack<Symbol> parameters = new Stack<>();
         
         for (Fragment fragment : fragments) {

@@ -14,9 +14,10 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_emptyString_returnsEmptyList() {
-        FragmentsSplitter splitter = new FragmentsSplitter("");
+        String plainText = "";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
         
         assertNotNull(fragments);
         assertTrue(fragments.isEmpty());
@@ -24,10 +25,11 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_onlyWhitespace_returnsEmptyList() {
-        FragmentsSplitter splitter = new FragmentsSplitter(" ");
+        String plainText = " ";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addWhitespaces(' ');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertTrue(fragments.isEmpty());
@@ -35,10 +37,11 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_multiWhitespaces_returnsEmptyList() {
-        FragmentsSplitter splitter = new FragmentsSplitter("  ");
+        String plainText = "  ";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addWhitespaces(' ');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertTrue(fragments.isEmpty());
@@ -46,25 +49,28 @@ public class FragmentsSplitterTest {
     
     @Test(expected = FragmentException.class)
     public void split_unknownCharOnStart_throwsException() {
-        FragmentsSplitter splitter = new FragmentsSplitter("x");
+        String plainText= "x";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         
-        splitter.split();
+        splitter.split(plainText);
     }
     
     @Test(expected = FragmentException.class)
     public void split_unknownCharAfterWhitespace_throwsException() {
-        FragmentsSplitter splitter = new FragmentsSplitter(" x");
+        String plainText = " x";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addWhitespaces(' ');
         
-        splitter.split();
+        splitter.split(plainText);
     }
     
     @Test
     public void split_oneSymbol_returnsOneFragment() {
-        FragmentsSplitter splitter = new FragmentsSplitter("1");
+        String plainText = "1";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '1');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
         
         assertNotNull(fragments);
         assertEquals(1, fragments.size());
@@ -73,10 +79,11 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_twoSymbol_returnsOneFragments() {
-        FragmentsSplitter splitter = new FragmentsSplitter("++");
+        String plainText = "++";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '+');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(1, fragments.size());
@@ -85,10 +92,11 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_twoSymbolAndReaderAcceptOneChar_returnsTwoFragments() {
-        FragmentsSplitter splitter = new FragmentsSplitter("++");
+        String plainText = "++";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> buffer.isEmpty() && c == '+');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(2, fragments.size());
@@ -98,11 +106,12 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_twoDifferentSymbol_returnsTwoFragments() {
-        FragmentsSplitter splitter = new FragmentsSplitter("+-");
+        String plainText = "+-";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '+');
         splitter.addReaders((buffer, c) -> c == '-');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(2, fragments.size());
@@ -113,11 +122,12 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_twoSymbolSeparatedByWhitespace_returnsTwoFragments() {
-        FragmentsSplitter splitter = new FragmentsSplitter("+ +");
+        String plainText = "+ +";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '+');
         splitter.addWhitespaces(' ');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(2, fragments.size());
@@ -127,11 +137,12 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_threeSymbolWithMultiWhitespace_returnsThreeFragments() {
-        FragmentsSplitter splitter = new FragmentsSplitter("  +   + + ");
+        String plainText = "  +   + + ";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '+');
         splitter.addWhitespaces(' ');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(3, fragments.size());
@@ -142,12 +153,13 @@ public class FragmentsSplitterTest {
     
     @Test
     public void split_twoDifferentSymbolSeparatedByWhitespace_returnsTwoSymbol() {
-        FragmentsSplitter splitter = new FragmentsSplitter("+ -");
+        String plainText = "+ -";
+        FragmentsSplitter splitter = new FragmentsSplitter();
         splitter.addReaders((buffer, c) -> c == '+');
         splitter.addReaders((buffer, c) -> c == '-');
         splitter.addWhitespaces(' ');
     
-        List<Fragment> fragments = splitter.split();
+        List<Fragment> fragments = splitter.split(plainText);
     
         assertNotNull(fragments);
         assertEquals(2, fragments.size());

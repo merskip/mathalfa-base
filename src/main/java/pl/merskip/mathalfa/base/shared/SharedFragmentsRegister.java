@@ -8,7 +8,7 @@ public class SharedFragmentsRegister extends FragmentsRegister {
     
     private static SharedFragmentsRegister instance = new SharedFragmentsRegister();
     
-    public static SharedFragmentsRegister getInstance() {
+    static SharedFragmentsRegister getInstance() {
         return instance;
     }
     
@@ -21,6 +21,8 @@ public class SharedFragmentsRegister extends FragmentsRegister {
         new Reflections("")
                 .getSubTypesOf(SharedFragmentReader.class)
                 .forEach(this::registerClass);
+        
+        addWhitespaces(' ', '\t', '\n');
     }
     
     private void registerClass(Class<? extends FragmentReader> readerClass) {

@@ -7,23 +7,26 @@ import pl.merskip.mathalfa.base.core.fragment.FragmentException;
 import pl.merskip.mathalfa.base.infixparser.PostfixParser;
 
 import static org.junit.Assert.*;
+import static pl.merskip.mathalfa.base.test.TestUtils.getParser;
 
 public class PostfixParserTest {
     
     @Test
     public void parse_emptyString_returnsNull() {
-        PostfixParser parser = TestUtils.getParser("");
+        String plainText = "";
+        PostfixParser parser = getParser();
     
-        Symbol rootSymbol = parser.parseAndGetRootSymbol();
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
         
         assertNull(rootSymbol);
     }
     
     @Test
     public void parse_onlyNumber_returnsIntegerNumber() {
-        PostfixParser parser = TestUtils.getParser("1");
+        String plainText = "1";
+        PostfixParser parser = getParser();
     
-        Symbol rootSymbol = parser.parseAndGetRootSymbol();
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
     
         assertNotNull(rootSymbol);
         assertTrue(rootSymbol instanceof TestUtils.IntegerNumber);
@@ -32,9 +35,10 @@ public class PostfixParserTest {
     
     @Test
     public void parse_simpleAddition_returnsAdditionAsRootSymbol() {
-        PostfixParser parser = TestUtils.getParser("1+2");
+        String plainText = "1+2";
+        PostfixParser parser = getParser();
         
-        Symbol rootSymbol = parser.parseAndGetRootSymbol();
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
         
         assertNotNull(rootSymbol);
         assertTrue(rootSymbol instanceof TestUtils.AdditionOperator);
@@ -46,8 +50,9 @@ public class PostfixParserTest {
     
     @Test(expected = FragmentException.class)
     public void parse_missedArgument_throwsFragmentException() {
-        PostfixParser parser = TestUtils.getParser("1+");
+        String plainText = "1+";
+        PostfixParser parser = getParser();
         
-        parser.parseAndGetRootSymbol();
+        parser.parseAndGetRootSymbol(plainText);
     }
 }
