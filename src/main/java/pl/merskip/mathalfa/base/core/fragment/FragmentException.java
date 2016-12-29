@@ -29,8 +29,8 @@ public class FragmentException extends RuntimeException {
     }
     
     @Override
-    public String getMessage() {
-        String message = super.getMessage();
+    public String toString() {
+        String message = super.toString();
         message += "\n" + plainText + "\n";
         message += StringUtils.repeat(' ', fragment.getIndex());
         message += StringUtils.repeat('^', fragment.getText().length());
