@@ -32,9 +32,18 @@ public class FragmentsSplitter {
         this.whitespaces.addAll(Arrays.asList(whitespaces));
     }
     
+    public String getLastPlainText() {
+        return plainText;
+    }
+    
+    public List<Fragment> getLastFragments() {
+        return fragments;
+    }
+    
     public List<Fragment> split(String plainText) {
         this.plainText = plainText;
         fragments = new LinkedList<>();
+        fragmentBuilder = null;
         
         for (int i = 0; i < plainText.length(); i++) {
             char c = plainText.charAt(i);

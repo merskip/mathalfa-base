@@ -13,7 +13,7 @@ class ParenthesisFragmentReader implements FragmentReader {
     
     @Override
     public ParenthesisType getParenthesisType(Fragment fragment) {
-        return fragment.getText().equals("(")
+        return fragment.getFragmentText().equals("(")
                 ? ParenthesisType.OPENING
                 : ParenthesisType.CLOSING;
     }

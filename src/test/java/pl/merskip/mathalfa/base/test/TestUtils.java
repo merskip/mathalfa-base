@@ -21,17 +21,17 @@ class TestUtils {
         
     }
     
-    static void print(String plainText, List<Fragment> fragments) {
-        System.out.print("\"" + plainText + "\" ->");
+    static void print(List<Fragment> fragments) {
+        System.out.print("\"" + fragments.get(0).getPlainText() + "\" ->");
         fragments.forEach(fragment ->
-                System.out.print(" \033[4m" + fragment.getText() + "\033[0m"));
+                System.out.print(" \033[4m" + fragment.getFragmentText() + "\033[0m"));
         System.out.println();
     }
     
     static void assertEqualsFragment(int exceptedIndex, String exceptedText,
                                              Fragment fragment) {
         assertEquals(exceptedIndex, fragment.getIndex());
-        assertEquals(exceptedText, fragment.getText());
+        assertEquals(exceptedText, fragment.getFragmentText());
     }
     
     static PostfixParser getParser() {
@@ -54,7 +54,7 @@ class TestUtils {
     
             @Override
             public Symbol create(Fragment fragment, Stack<Symbol> parameters) {
-                int number = Integer.parseInt(fragment.getText());
+                int number = Integer.parseInt(fragment.getFragmentText());
                 return new IntegerNumber(number);
             }
         };

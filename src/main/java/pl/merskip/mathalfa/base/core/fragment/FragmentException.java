@@ -5,23 +5,20 @@ import org.apache.commons.lang3.StringUtils;
 
 public class FragmentException extends RuntimeException {
     
-    private String plainText;
     private Fragment fragment;
     
-    public FragmentException(String message, String plainText, Fragment fragment) {
+    public FragmentException(String message, Fragment fragment) {
         super(message);
-        this.plainText = plainText;
         this.fragment = fragment;
     }
     
-    public FragmentException(String message, String plainText, Fragment fragment, Throwable cause) {
+    public FragmentException(String message, Fragment fragment, Throwable cause) {
         super(message, cause);
-        this.plainText = plainText;
         this.fragment = fragment;
     }
     
     public String getPlainText() {
-        return plainText;
+        return fragment.getPlainText();
     }
     
     public Fragment getFragment() {
@@ -31,10 +28,10 @@ public class FragmentException extends RuntimeException {
     @Override
     public String toString() {
         String message = super.toString();
-        message += "\n" + plainText + "\n";
+        message += "\n" + getPlainText() + "\n";
         message += StringUtils.repeat(' ', fragment.getIndex());
-        message += StringUtils.repeat('^', fragment.getText().length());
-        if (fragment.getText().isEmpty()) {
+        message += StringUtils.repeat('^', fragment.getFragmentText().length());
+        if (fragment.getFragmentText().isEmpty()) {
             message += "^";
         }
         return message;

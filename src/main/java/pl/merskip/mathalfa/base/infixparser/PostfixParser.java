@@ -12,9 +12,14 @@ import java.util.Stack;
 public class PostfixParser {
     
     private PostfixConverter postfixConverter;
+    private Symbol rootSymbol;
     
     public PostfixParser(PostfixConverter postfixConverter) {
         this.postfixConverter = postfixConverter;
+    }
+    
+    public Symbol getLastRootSymbol() {
+        return rootSymbol;
     }
     
     public Symbol parseAndGetRootSymbol(String plainText) {
@@ -28,11 +33,12 @@ public class PostfixParser {
             try {
                 parameters.push(reader.create(fragment, parameters));
             } catch (EmptyStackException e) {
-                throw new FragmentException("Too few arguments", plainText, fragment, e);
+                throw new FragmentException("Too few arguments", fragment, e);
             }
         }
         
-        return parameters.empty() ? null : parameters.pop();
+        rootSymbol = parameters.empty() ? null : parameters.pop();
+        return rootSymbol;
     }
     
 }

@@ -18,7 +18,7 @@ public class NumberFragmentReader implements SymbolReader<Number>, SharedFragmen
     
     @Override
     public Number create(Fragment fragment, Stack<Symbol> parameters) {
-        int numerator = Integer.parseInt(fragment.getText());
+        int numerator = Integer.parseInt(fragment.getFragmentText());
         return new RationalNumber(numerator);
     }
 }

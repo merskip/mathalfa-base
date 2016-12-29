@@ -6,18 +6,24 @@ import java.util.List;
 
 public class Fragment {
     
-    private String text;
+    private String plainText;
+    private String fragmentText;
     private int index;
     private FragmentReader reader;
     
-    private Fragment(String text, int index, FragmentReader reader) {
-        this.text = text;
+    private Fragment(String plainText, String fragmentText, int index, FragmentReader reader) {
+        this.plainText = plainText;
+        this.fragmentText = fragmentText;
         this.index = index;
         this.reader = reader;
     }
     
-    public String getText() {
-        return text;
+    public String getPlainText() {
+        return plainText;
+    }
+    
+    public String getFragmentText() {
+        return fragmentText;
     }
     
     public int getIndex() {
@@ -66,14 +72,14 @@ public class Fragment {
         }
         
         Fragment build() {
-            Fragment fragment = new Fragment(buffer, index, null);
+            Fragment fragment = new Fragment(plainText, buffer, index, null);
             
             if (readers.size() > 1)
                 throw new FragmentException("Fragment is ambiguous" +
-                        " (" + readers.size() + " readers)", plainText, fragment);
+                        " (" + readers.size() + " readers)", fragment);
             
             if (readers.isEmpty())
-                throw new FragmentException("Unknown fragment", plainText, fragment);
+                throw new FragmentException("Unknown fragment", fragment);
             
             fragment.reader = readers.get(0);
             return fragment;

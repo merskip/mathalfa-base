@@ -41,7 +41,7 @@ public class PostfixConverterTest {
         PostfixConverter converter = getConverter();
     
         List<Fragment> fragments = converter.convert(plainText);
-        print(plainText, fragments);
+        print(fragments);
     
         assertEquals(3, fragments.size());
         assertEqualsFragment(0, "1", fragments.get(0));
@@ -55,7 +55,7 @@ public class PostfixConverterTest {
         PostfixConverter converter = getConverter();
     
         List<Fragment> fragments = converter.convert(plainText);
-        print(plainText, fragments);
+        print(fragments);
     
         assertEquals(5, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();
@@ -72,7 +72,7 @@ public class PostfixConverterTest {
         PostfixConverter converter = getConverter();
     
         List<Fragment> fragments = converter.convert(plainText);
-        print(plainText, fragments);
+        print(fragments);
     
         assertEquals(5, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();
@@ -89,7 +89,7 @@ public class PostfixConverterTest {
         PostfixConverter converter = getConverter();
         
         List<Fragment> fragments = converter.convert(plainText);
-        print(plainText, fragments);
+        print(fragments);
         
         assertEquals(7, fragments.size());
         Iterator<Fragment> fragment = fragments.iterator();

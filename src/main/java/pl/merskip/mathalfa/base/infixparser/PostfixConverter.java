@@ -14,16 +14,21 @@ import java.util.Stack;
 public class PostfixConverter {
     
     private FragmentsSplitter splitter;
+    private List<Fragment> output;
     
     public PostfixConverter(FragmentsSplitter splitter) {
         this.splitter = splitter;
         this.splitter.addReaders(new ParenthesisFragmentReader());
     }
     
+    public List<Fragment> getLastConvertedFragments() {
+        return output;
+    }
+    
     public List<Fragment> convert(String plainText) {
         List<Fragment> fragments = splitter.split(plainText);
         
-        List<Fragment> output = new ArrayList<>(fragments.size());
+        output = new ArrayList<>(fragments.size());
         Stack<Fragment> operationsStack = new Stack<>();
 
         for (Fragment fragment : fragments) {
@@ -71,7 +76,7 @@ public class PostfixConverter {
                 }
 
                 if (!isOpeningParenthesis(topOperation)) {
-                    throw new FragmentException("Not found opening parenthesis", plainText, fragment);
+                    throw new FragmentException("Not found opening parenthesis", fragment);
                 }
             }
             else {
@@ -83,7 +88,7 @@ public class PostfixConverter {
             Fragment fragment = operationsStack.peek();
 
             if (isOpeningParenthesis(fragment)) {
-                throw new FragmentException("Unexpected opening parenthesis", plainText, fragment);
+                throw new FragmentException("Unexpected opening parenthesis", fragment);
             }
 
             output.add(fragment);
@@ -93,7 +98,6 @@ public class PostfixConverter {
 
         return output;
     }
-
     
     private boolean isOpeningParenthesis(Fragment fragment) {
         return fragment.getReader().getParenthesisType(fragment) == ParenthesisType.OPENING;
