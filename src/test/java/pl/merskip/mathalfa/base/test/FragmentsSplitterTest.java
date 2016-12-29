@@ -78,6 +78,19 @@ public class FragmentsSplitterTest {
     }
     
     @Test
+    public void split_twoDigitNumber_returnsOneFragment() {
+        String plainText = "12";
+        FragmentsSplitter splitter = new FragmentsSplitter();
+        splitter.addReaders((buffer, c) -> Character.isDigit(c));
+    
+        List<Fragment> fragments = splitter.split(plainText);
+    
+        assertNotNull(fragments);
+        assertEquals(1, fragments.size());
+        assertEqualsFragment(0, "12", fragments.get(0));
+    }
+    
+    @Test
     public void split_twoSymbol_returnsOneFragments() {
         String plainText = "++";
         FragmentsSplitter splitter = new FragmentsSplitter();

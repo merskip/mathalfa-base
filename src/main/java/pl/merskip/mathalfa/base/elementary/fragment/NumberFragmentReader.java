@@ -13,7 +13,7 @@ public class NumberFragmentReader implements SymbolReader<Number>, SharedFragmen
     
     @Override
     public boolean fulfills(String buffer, char c) {
-        return buffer.isEmpty() && Character.isDigit(c);
+        return Character.isDigit(c);
     }
     
     @Override
