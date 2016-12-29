@@ -8,7 +8,7 @@ public class SharedFragmentsRegister extends FragmentsRegister {
     
     private static SharedFragmentsRegister instance = new SharedFragmentsRegister();
     
-    static SharedFragmentsRegister getInstance() {
+    public static SharedFragmentsRegister getInstance() {
         return instance;
     }
     
