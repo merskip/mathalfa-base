@@ -18,7 +18,7 @@ public class SharedFragmentsRegister extends FragmentsRegister {
     
     @Override
     protected void registerSymbols() {
-        new Reflections("")
+        new Reflections("pl.merskip.mathalfa")
                 .getSubTypesOf(SharedFragmentReader.class)
                 .forEach(this::registerClass);
         
