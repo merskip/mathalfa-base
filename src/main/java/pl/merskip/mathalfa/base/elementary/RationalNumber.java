@@ -6,27 +6,35 @@ import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 import pl.merskip.mathalfa.base.operation.SimplifyOperation.Simplifiable;
 
-import static java.lang.Math.abs;
+import java.math.BigInteger;
 
 public class RationalNumber implements Number, Calculable, Simplifiable {
 
-    private int numerator;
-    private int denominator;
+    private BigInteger numerator;
+    private BigInteger denominator;
 
-    public RationalNumber(int numerator) {
-        this(numerator, 1);
+    public RationalNumber(long numerator, long denominator) {
+        this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
     }
     
-    public RationalNumber(int numerator, int denominator) {
+    public RationalNumber(String numerator) {
+        this(new BigInteger(numerator), BigInteger.ONE);
+    }
+    
+    public RationalNumber(String numerator, String denominator) {
+        this(new BigInteger(numerator), new BigInteger(denominator));
+    }
+    
+    public RationalNumber(BigInteger numerator, BigInteger denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
 
-    public int getNumerator() {
+    public BigInteger getNumerator() {
         return numerator;
     }
 
-    public int getDenominator() {
+    public BigInteger getDenominator() {
         return denominator;
     }
     
@@ -37,15 +45,22 @@ public class RationalNumber implements Number, Calculable, Simplifiable {
     
     @Override
     public Symbol simplify(Operation operation) {
-        int sign = numerator * denominator >= 0 ? 1 : -1;
-        int gcd = getGCD(abs(numerator), abs(denominator));
-        if (gcd > 1) {
-            return new RationalNumber(abs(numerator) / gcd * sign, abs(denominator) / gcd);
+        int sign = numerator.signum() * denominator.signum() >= 0 ? 1 : -1;
+        BigInteger gcd = getGCD(numerator.abs(), denominator.abs());
+        if (gcd.compareTo(BigInteger.ONE) == 1) {
+            BigInteger numerator = this.numerator.abs().divide(gcd);
+            BigInteger denominator = this.denominator.abs().divide(gcd);
+            if (sign == -1) numerator = numerator.negate();
+            
+            return new RationalNumber(numerator, denominator);
         }
         else {
-            int numerator = abs(this.numerator) * sign;
-            int denominator = abs(this.denominator);
-            if (numerator == this.numerator && denominator == this.denominator) {
+            BigInteger numerator = this.numerator.abs();
+            BigInteger denominator = this.denominator.abs();
+            if (sign == -1) numerator = numerator.negate();
+            
+            if (numerator.equals(this.numerator)
+                    && denominator.equals(this.denominator)) {
                 return this;
             }
             else {
@@ -54,21 +69,26 @@ public class RationalNumber implements Number, Calculable, Simplifiable {
         }
     }
     
-    private int getGCD(int a, int b) {
-        if (b == 0)
+    private BigInteger getGCD(BigInteger a, BigInteger b) {
+        if (b.compareTo(BigInteger.ZERO) == 0)
             return a;
-        return getGCD(b, a % b);
+        return getGCD(b, a.mod(b));
     }
     
+    @Override
     public String toPlainText() {
-        if (denominator != 1)
+        if (!isInteger())
             return String.format("%d/%d", numerator, denominator);
         else
             return String.valueOf(numerator);
     }
+    
+    public boolean isInteger() {
+        return denominator.compareTo(BigInteger.ONE) == 0;
+    }
 
     public double toDouble() {
-        return (double) numerator / (double) denominator;
+        return numerator.doubleValue() / denominator.doubleValue();
     }
     
 }

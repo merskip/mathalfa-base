@@ -5,6 +5,8 @@ import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 
+import java.math.BigInteger;
+
 public class NumberDivision implements Operator, Calculable {
     
     private Symbol firstArgument;
@@ -33,8 +35,10 @@ public class NumberDivision implements Operator, Calculable {
             RationalNumber firstNumber = (RationalNumber) calculatedFirstArgument;
             RationalNumber secondNumber = (RationalNumber) calculatedSecondArgument;
             
-            int numerator = firstNumber.getNumerator() * secondNumber.getDenominator();
-            int denominator = firstNumber.getDenominator() * secondNumber.getNumerator();
+            BigInteger numerator = firstNumber.getNumerator()
+                    .multiply(secondNumber.getDenominator());
+            BigInteger denominator = firstNumber.getDenominator()
+                    .multiply(secondNumber.getNumerator());
             return new RationalNumber(numerator, denominator);
         }
         else {

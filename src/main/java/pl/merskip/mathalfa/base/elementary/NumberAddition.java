@@ -5,6 +5,8 @@ import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 
+import java.math.BigInteger;
+
 public class NumberAddition implements Operator, Calculable {
 
     private Symbol firstArgument;
@@ -33,9 +35,10 @@ public class NumberAddition implements Operator, Calculable {
             RationalNumber firstNumber = (RationalNumber) calculatedFirstArgument;
             RationalNumber secondNumber = (RationalNumber) calculatedSecondArgument;
 
-            int numerator = firstNumber.getNumerator() * secondNumber.getDenominator()
-                    + firstNumber.getDenominator() * secondNumber.getNumerator();
-            int denominator = firstNumber.getDenominator() * secondNumber.getDenominator();
+            BigInteger numerator = firstNumber.getNumerator().multiply(secondNumber.getDenominator())
+                    .add(firstNumber.getDenominator().multiply(secondNumber.getNumerator()));
+            BigInteger denominator = firstNumber.getDenominator()
+                    .multiply(secondNumber.getDenominator());
             return new RationalNumber(numerator, denominator);
         }
         else {
