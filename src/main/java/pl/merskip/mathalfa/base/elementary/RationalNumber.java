@@ -19,11 +19,11 @@ public class RationalNumber implements Number, Calculable {
         this.denominator = denominator;
     }
 
-    int getNumerator() {
+    public int getNumerator() {
         return numerator;
     }
 
-    int getDenominator() {
+    public int getDenominator() {
         return denominator;
     }
     

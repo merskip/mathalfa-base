@@ -15,6 +15,14 @@ public class NumberSubtraction implements Operator, Calculable {
         this.secondArgument = secondArgument;
     }
     
+    public Symbol getFirstArgument() {
+        return firstArgument;
+    }
+    
+    public Symbol getSecondArgument() {
+        return secondArgument;
+    }
+    
     @Override
     public Symbol calculate(Operation operation) {
         Symbol calculatedFirstArgument = operation.executeForResult(firstArgument);
