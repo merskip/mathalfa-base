@@ -36,4 +36,31 @@ public class CalculateOperationTest {
         Assert.assertEquals(-4.0, number.toDouble(), Double.MIN_VALUE);
     }
     
+    @Test
+    public void test3() {
+        String plainText = "2*3";
+        CalculateOperation operation = new CalculateOperation();
+        PostfixParser parser = new SharedPostfixParser();
+    
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
+        Symbol result = operation.executeForResult(rootSymbol);
+    
+        Assert.assertTrue(result instanceof Number);
+        Number number = (Number) result;
+        Assert.assertEquals(6.0, number.toDouble(), Double.MIN_VALUE);
+    }
+    
+    @Test
+    public void test4() {
+        String plainText = "6/3";
+        CalculateOperation operation = new CalculateOperation();
+        PostfixParser parser = new SharedPostfixParser();
+        
+        Symbol rootSymbol = parser.parseAndGetRootSymbol(plainText);
+        Symbol result = operation.executeForResult(rootSymbol);
+        
+        Assert.assertTrue(result instanceof Number);
+        Number number = (Number) result;
+        Assert.assertEquals(2.0, number.toDouble(), Double.MIN_VALUE);
+    }
 }
