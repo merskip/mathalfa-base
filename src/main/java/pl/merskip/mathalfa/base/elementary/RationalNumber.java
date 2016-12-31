@@ -4,10 +4,11 @@ import pl.merskip.mathalfa.base.core.Number;
 import pl.merskip.mathalfa.base.core.Operation;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
+import pl.merskip.mathalfa.base.operation.SimplifyOperation.Simplifiable;
 
 import static java.lang.Math.abs;
 
-public class RationalNumber implements Number, Calculable {
+public class RationalNumber implements Number, Calculable, Simplifiable {
 
     private int numerator;
     private int denominator;
@@ -34,7 +35,8 @@ public class RationalNumber implements Number, Calculable {
         return this;
     }
     
-    public RationalNumber simplify() {
+    @Override
+    public Symbol simplify(Operation operation) {
         int sign = numerator * denominator >= 0 ? 1 : -1;
         int gcd = getGCD(abs(numerator), abs(denominator));
         if (gcd > 1) {
