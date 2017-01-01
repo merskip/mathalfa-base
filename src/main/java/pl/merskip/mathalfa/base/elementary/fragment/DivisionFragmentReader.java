@@ -1,15 +1,15 @@
 package pl.merskip.mathalfa.base.elementary.fragment;
 
-import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.core.fragment.Fragment;
 import pl.merskip.mathalfa.base.core.fragment.SymbolReader;
 import pl.merskip.mathalfa.base.elementary.NumberDivision;
+import pl.merskip.mathalfa.base.elementary.RationalNumber;
 import pl.merskip.mathalfa.base.shared.SharedFragmentReader;
 
 import java.util.Stack;
 
-public class DivisionFragmentReader implements SymbolReader<Operator>, SharedFragmentReader {
+public class DivisionFragmentReader implements SymbolReader<Symbol>, SharedFragmentReader {
     
     @Override
     public boolean fulfills(String buffer, char c) {
@@ -27,9 +27,20 @@ public class DivisionFragmentReader implements SymbolReader<Operator>, SharedFra
     }
     
     @Override
-    public Operator create(Fragment fragment, Stack<Symbol> parameters) {
+    public Symbol create(Fragment fragment, Stack<Symbol> parameters) {
         Symbol secondParam = parameters.pop();
         Symbol firstParam = parameters.pop();
+        
+        if (secondParam instanceof RationalNumber
+                && firstParam instanceof RationalNumber) {
+            RationalNumber secondNumber = (RationalNumber) secondParam;
+            RationalNumber firstNumber = (RationalNumber) firstParam;
+
+            if (secondNumber.isInteger() && firstNumber.isInteger()) {
+                return new RationalNumber(firstNumber.getNumerator(),
+                        secondNumber.getNumerator());
+            }
+        }
         return new NumberDivision(firstParam, secondParam);
     }
 }
