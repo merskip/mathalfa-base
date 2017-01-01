@@ -51,6 +51,16 @@ public class NumberExponentiation implements Operator, Calculable {
                 
                 return new RationalNumber(numerator, denominator);
             }
+            else if (power.getNumerator().compareTo(BigInteger.ONE) != 0
+                    && power.getDenominator().compareTo(BigInteger.ZERO) == 1) {
+                BigInteger numerator = pow(base.getNumerator(), power.getNumerator());
+                BigInteger denominator = pow(base.getDenominator(), power.getNumerator());
+                
+                RationalNumber newBase = new RationalNumber(numerator, denominator);
+                RationalNumber newPower = new RationalNumber(BigInteger.ONE, power.getDenominator());
+                
+                return new NumberExponentiation(newBase, newPower).calculate(operation);
+            }
         }
         
         return new NumberExponentiation(calculatedBase, calculatedPower);
