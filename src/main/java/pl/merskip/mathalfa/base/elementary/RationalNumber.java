@@ -83,6 +83,10 @@ public class RationalNumber implements Number, Calculable, Simplifiable {
             return String.valueOf(numerator);
     }
     
+    public RationalNumber inverted() {
+        return new RationalNumber(denominator, numerator);
+    }
+    
     public boolean isInteger() {
         return denominator.compareTo(BigInteger.ONE) == 0;
     }
