@@ -75,14 +75,6 @@ public class RationalNumber implements Number, Calculable, Simplifiable {
         return getGCD(b, a.mod(b));
     }
     
-    @Override
-    public String toPlainText() {
-        if (!isInteger())
-            return String.format("%d/%d", numerator, denominator);
-        else
-            return String.valueOf(numerator);
-    }
-    
     public RationalNumber inverted() {
         return new RationalNumber(denominator, numerator);
     }
@@ -93,6 +85,14 @@ public class RationalNumber implements Number, Calculable, Simplifiable {
 
     public double toDouble() {
         return numerator.doubleValue() / denominator.doubleValue();
+    }
+    
+    @Override
+    public String toPlainText() {
+        if (!isInteger())
+            return String.format("%d/%d", numerator, denominator);
+        else
+            return String.valueOf(numerator);
     }
     
 }

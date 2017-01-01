@@ -1,11 +1,13 @@
 package pl.merskip.mathalfa.base.elementary;
 
+import com.google.common.collect.ImmutableList;
 import pl.merskip.mathalfa.base.core.Operation;
 import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class NumberExponentiation implements Operator, Calculable {
     
@@ -64,9 +66,15 @@ public class NumberExponentiation implements Operator, Calculable {
         return result;
     }
     
+    
+    @Override
+    public List<Symbol> getArguments() {
+        return ImmutableList.of(base, power);
+    }
+    
     @Override
     public String toPlainText() {
-        return null;
+        return "^";
     }
     
 }

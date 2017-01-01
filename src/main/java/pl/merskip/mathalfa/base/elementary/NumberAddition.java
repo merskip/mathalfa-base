@@ -1,11 +1,13 @@
 package pl.merskip.mathalfa.base.elementary;
 
+import com.google.common.collect.ImmutableList;
 import pl.merskip.mathalfa.base.core.Operation;
 import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class NumberAddition implements Operator, Calculable {
 
@@ -47,8 +49,12 @@ public class NumberAddition implements Operator, Calculable {
     }
     
     @Override
+    public List<Symbol> getArguments() {
+        return ImmutableList.of(firstArgument, secondArgument);
+    }
+    
+    @Override
     public String toPlainText() {
-        return String.format("(%s) + (%s)",
-                firstArgument.toPlainText(), secondArgument.toPlainText());
+        return "+";
     }
 }

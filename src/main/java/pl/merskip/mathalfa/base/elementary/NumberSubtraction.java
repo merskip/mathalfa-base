@@ -1,11 +1,13 @@
 package pl.merskip.mathalfa.base.elementary;
 
+import com.google.common.collect.ImmutableList;
 import pl.merskip.mathalfa.base.core.Operation;
 import pl.merskip.mathalfa.base.core.Operator;
 import pl.merskip.mathalfa.base.core.Symbol;
 import pl.merskip.mathalfa.base.operation.CalculateOperation.Calculable;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class NumberSubtraction implements Operator, Calculable {
     
@@ -46,8 +48,13 @@ public class NumberSubtraction implements Operator, Calculable {
         }
     }
     
+    @Override
+    public List<Symbol> getArguments() {
+        return ImmutableList.of(firstArgument, secondArgument);
+    }
+    
     public String toPlainText() {
-        return firstArgument.toPlainText() + " + " + secondArgument.toPlainText();
+        return "-";
     }
     
 }
